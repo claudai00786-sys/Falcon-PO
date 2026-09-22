@@ -23,11 +23,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-     - name: Install Dependencies
+
+      - name: Install Dependencies
         run: |
           npm config set legacy-peer-deps true
           npm install --legacy-peer-deps --force
+
+      - name: Build Web Application
         run: npm run build
 
       - name: Set up JDK 17
@@ -38,7 +40,7 @@ jobs:
           cache: 'gradle'
 
       - name: Sync Capacitor Android
-        run: npx cap sync android
+        run: CI=true CAPACITOR_TELEMETRY=0 npx cap sync android
 
       - name: Grant Execute Permission to Gradlew
         run: |
@@ -60,13 +62,6 @@ jobs:
             echo "Error: APK not found"
             exit 1
           fi
-
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Falcon-POS-APK
-          path: dist-apk/Falcon-POS.apk
-          retention-days: 30
 
       - name: Publish GitHub Release
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
