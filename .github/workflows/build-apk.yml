@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-- name: Install Dependencies
+     - name: Install Dependencies
         run: |
           npm config set legacy-peer-deps true
           npm install --legacy-peer-deps --force
