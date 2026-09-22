@@ -24,11 +24,10 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci || npm install
-
-      - name: Build Web Application
+- name: Install Dependencies
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps --force
         run: npm run build
 
       - name: Set up JDK 17
