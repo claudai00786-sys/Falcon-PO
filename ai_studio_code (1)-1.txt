@@ -1,1 +1,0 @@
-- **Version**: 1.0.${{ github.run_number }} (Build: ${{ github.run_number }})
